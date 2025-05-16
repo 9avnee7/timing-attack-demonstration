@@ -11,7 +11,7 @@ def weak_compare(input_str, secret_str):
         if input_str[i] != secret_str[i]:
             return False
         time.sleep(0.0001)  # Artificial delay per matched character
-    time.sleep(0.0001)  # Final delay after full match
+    time.sleep(0.001)  # Final delay after full match
     return True
 
 # --- Secure constant-time comparison function ---
@@ -58,7 +58,7 @@ def run_timing_attack(secret, use_secure=False):
             )
 
             # Measure average time
-            avg_time = measure_time(guess, SECRET, trials=500)
+            avg_time = measure_time(guess, secret, trials=500,use_secure=use_secure)
 
             # Store timing result
             timing_results[pos][char].append(avg_time)
@@ -81,7 +81,7 @@ def run_timing_attack(secret, use_secure=False):
     print(f"\n[*] Final inferred secret: {final_guess}")
 
     # Optional: Compare to actual secret
-    print("[✓] Correct!" if final_guess == SECRET else "[✗] Incorrect")
+    print("[✓] Correct!" if final_guess == secret else "[✗] Incorrect")
 
 
 
